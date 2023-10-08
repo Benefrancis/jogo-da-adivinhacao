@@ -3,10 +3,12 @@
 #include <map>
 #include <vector>
 #include<fstream>
+#include<ctime>
+#include<cstdlib>
 
 using namespace std;
 
-const string PALAVRA_SECRETA = "MELANCIA";
+string palavra_secreta = "MELANCIA";
 
 map<char, bool> chutou;
 
@@ -28,7 +30,17 @@ bool acertou();
 
 bool existe(char l);
 
-void ler_arquivo(){
+
+string sorteia();
+
+
+/**
+  * Lê o arquivo de palavras que serão as palavras utilizadas no jogo
+  * @return
+  *
+  * retorna as palavras
+  */
+vector<string> ler_arquivo() {
     ifstream arquivo;
 
     arquivo.open("palavras.txt");
@@ -37,11 +49,18 @@ void ler_arquivo(){
 
     arquivo >> qtd_palavras;
 
-    for(int i=0; i<qtd_palavras; i++){
+    vector<string> palavras;
+
+    for (int i = 0; i < qtd_palavras; i++) {
         string palavra;
         arquivo >> palavra;
-       // cout << "Na linha " << i << " : " << palavra << endl;
+
+        palavras.push_back(palavra);
+
+        // cout << "Na linha " << i << " : " << palavra << endl;
     }
+
+    return palavras;
 
 }
 
@@ -51,9 +70,10 @@ void ler_arquivo(){
  * @return
  */
 int main() {
+
     cabecalho();
 
-    ler_arquivo();
+    sorteia();
 
     while (!enforcou() && !acertou()) {
         imprime_palavra();
@@ -63,13 +83,24 @@ int main() {
     placar();
 }
 
+ string sorteia() {
+
+    vector<string> palavras = ler_arquivo();
+
+    srand(time(NULL));
+
+    int indice = rand() % palavras.size();
+
+    palavra_secreta = palavras[indice];
+}
+
 
 /**
  * Imprime o placar ao final do jogo
  */
 void placar() {
     cout << "Fim de jogo!" << endl;
-    cout << "A palavra secreta era: " << PALAVRA_SECRETA << endl;
+    cout << "A palavra secreta era: " << palavra_secreta << endl;
 
     if (!acertou()) {
         cout << "Voce perdeu! Tente novamente!" << endl;
@@ -107,7 +138,7 @@ void chute() {
 void imprime_palavra() {
     cout << endl;
     cout << endl;
-    for (char l: PALAVRA_SECRETA) {
+    for (char l: palavra_secreta) {
         if (chutou[l]) {
             cout << l << " ";
         } else {
@@ -146,7 +177,7 @@ void cabecalho() {
  */
 bool existe(char chute) {
 
-    for (char c: PALAVRA_SECRETA) {
+    for (char c: palavra_secreta) {
         if (chute == c) {
             return true;
         }
@@ -159,7 +190,7 @@ bool existe(char chute) {
  * @return
  */
 bool acertou() {
-    for (char l: PALAVRA_SECRETA) {
+    for (char l: palavra_secreta) {
         if (!chutou[l]) {
             return false;
         }
@@ -172,5 +203,5 @@ bool acertou() {
  * @return
  */
 bool enforcou() {
-    return erros.size() >= 4;
+    return erros.size() > 4;
 }
