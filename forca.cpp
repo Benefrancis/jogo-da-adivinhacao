@@ -64,6 +64,9 @@ int main() {
             cout << "O seu chute esta na palavra" << endl;
         } else {
             cout << "O seu chute nao esta na palavra" << endl;
+            //Para inserir um elemento em um vector
+            // aprendemos a usar o método push_back
+            // que insere o elemento desejado no final da lista armazenada.
             erros.push_back(chute);
         }
         cout << endl;
