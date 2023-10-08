@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CURSO DE C PLUS PLUS.iml" filepath="$PROJECT_DIR$/CURSO DE C PLUS PLUS.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/CURSO_DE_C_PLUS_PLUS.iml" filepath="$PROJECT_DIR$/.idea/CURSO_DE_C_PLUS_PLUS.iml" />
     </modules>
   </component>
 </project>
