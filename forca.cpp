@@ -2,6 +2,7 @@
 #include<string>
 #include <map>
 #include <vector>
+#include<fstream>
 
 using namespace std;
 
@@ -27,9 +28,33 @@ bool acertou();
 
 bool existe(char l);
 
+void ler_arquivo(){
+    ifstream arquivo;
 
+    arquivo.open("palavras.txt");
+
+    int qtd_palavras;
+
+    arquivo >> qtd_palavras;
+
+    for(int i=0; i<qtd_palavras; i++){
+        string palavra;
+        arquivo >> palavra;
+       // cout << "Na linha " << i << " : " << palavra << endl;
+    }
+
+}
+
+
+/**
+ * Metodo inicial
+ * @return
+ */
 int main() {
     cabecalho();
+
+    ler_arquivo();
+
     while (!enforcou() && !acertou()) {
         imprime_palavra();
         chutes_errados();
@@ -38,6 +63,10 @@ int main() {
     placar();
 }
 
+
+/**
+ * Imprime o placar ao final do jogo
+ */
 void placar() {
     cout << "Fim de jogo!" << endl;
     cout << "A palavra secreta era: " << PALAVRA_SECRETA << endl;
@@ -49,6 +78,9 @@ void placar() {
     }
 }
 
+/**
+ * função para disponibilizar uma oportunidade de chute para o jogador
+ */
 void chute() {
     char chute;
     cout << "Chute uma letra: " << endl;
@@ -69,6 +101,9 @@ void chute() {
     cout << endl;
 }
 
+/**
+ * Imprime a palavra sendo formada
+ */
 void imprime_palavra() {
     cout << endl;
     cout << endl;
@@ -82,10 +117,11 @@ void imprime_palavra() {
     cout << endl;
 }
 
+/**
+ * Imprime os chutes errados
+ */
 void chutes_errados() {
     cout << endl;
-
-
     cout << "Chutes errados: ";
     for (char e: erros) {
         cout << e << " ";
@@ -93,12 +129,21 @@ void chutes_errados() {
     cout << endl;
 }
 
+
+/**
+ * Imprime o caveçalho do programa
+ */
 void cabecalho() {
     cout << "*****************" << endl;
     cout << "* JOGO DA FORCA *" << endl;
     cout << "*****************" << endl;
 }
 
+/**
+ * Existe o caracter na palavra secreta
+ * @param chute
+ * @return
+ */
 bool existe(char chute) {
 
     for (char c: PALAVRA_SECRETA) {
@@ -109,6 +154,10 @@ bool existe(char chute) {
     return false;
 }
 
+/**
+ * Retorna se o jogador ja acertou a palavra secreta
+ * @return
+ */
 bool acertou() {
     for (char l: PALAVRA_SECRETA) {
         if (!chutou[l]) {
@@ -118,7 +167,10 @@ bool acertou() {
     return true;
 }
 
-
+/**
+ * Existem apenas quatro tentativas
+ * @return
+ */
 bool enforcou() {
     return erros.size() >= 4;
 }
