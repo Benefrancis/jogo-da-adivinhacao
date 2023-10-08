@@ -41,24 +41,36 @@ string sorteia();
   * retorna as palavras
   */
 vector<string> ler_arquivo() {
+
     ifstream arquivo;
 
     arquivo.open("palavras.txt");
 
-    int qtd_palavras;
-
-    arquivo >> qtd_palavras;
-
     vector<string> palavras;
 
-    for (int i = 0; i < qtd_palavras; i++) {
-        string palavra;
-        arquivo >> palavra;
+    if(arquivo.is_open()) {
 
-        palavras.push_back(palavra);
+        int qtd_palavras;
 
-        // cout << "Na linha " << i << " : " << palavra << endl;
+        arquivo >> qtd_palavras;
+
+
+
+        for (int i = 0; i < qtd_palavras; i++) {
+            string palavra;
+            arquivo >> palavra;
+
+            palavras.push_back(palavra);
+
+            // cout << "Na linha " << i << " : " << palavra << endl;
+        }
+
+        arquivo.close();
+    } else{
+        cout << "Não foi possível acesar o banco de palavras " << endl;
+        exit(0);
     }
+
 
     return palavras;
 
