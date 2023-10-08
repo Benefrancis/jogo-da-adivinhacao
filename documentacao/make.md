@@ -2,6 +2,24 @@ Usando comando Make no Windows
 
 
 
+O equivalente do comando make do Linux e Mac para o Windows se chama mingw32-make, caso se tenha realizado a instalação do pacote mingw do início do curso.
+
+Seu uso se faz do mesmo modo que o comando make, basta rodar:
+
+
+```prompt
+
+mingw32-make forca
+
+```
+
+O comando acima compila e gera o executável do programa chamado forca.cpp.
+
+
+
+MAs podemos instalar o make....
+
+
 Nesse rápido tutorial iremos ver como instalar o “make” para utilizar o comando make no Windows, para que você possa automatizar tarefas utilizando o Makefile.
 
 Instalação do Make
