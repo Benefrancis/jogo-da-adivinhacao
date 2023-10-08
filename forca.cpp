@@ -34,6 +34,10 @@ bool existe(char l);
 string sorteia();
 
 
+void adiciona_palavra();
+
+void salva_arquivo(vector<string> vector1);
+
 /**
   * Lê o arquivo de palavras que serão as palavras utilizadas no jogo
   * @return
@@ -41,39 +45,24 @@ string sorteia();
   * retorna as palavras
   */
 vector<string> ler_arquivo() {
-
     ifstream arquivo;
-
     arquivo.open("palavras.txt");
-
     vector<string> palavras;
-
-    if(arquivo.is_open()) {
-
+    if (arquivo.is_open()) {
         int qtd_palavras;
-
         arquivo >> qtd_palavras;
-
-
-
         for (int i = 0; i < qtd_palavras; i++) {
             string palavra;
             arquivo >> palavra;
-
             palavras.push_back(palavra);
-
             // cout << "Na linha " << i << " : " << palavra << endl;
         }
-
         arquivo.close();
-    } else{
+    } else {
         cout << "Não foi possível acesar o banco de palavras " << endl;
         exit(0);
     }
-
-
     return palavras;
-
 }
 
 
@@ -95,7 +84,7 @@ int main() {
     placar();
 }
 
- string sorteia() {
+string sorteia() {
 
     vector<string> palavras = ler_arquivo();
 
@@ -104,6 +93,8 @@ int main() {
     int indice = rand() % palavras.size();
 
     palavra_secreta = palavras[indice];
+
+    return palavra_secreta;
 }
 
 
@@ -118,6 +109,49 @@ void placar() {
         cout << "Voce perdeu! Tente novamente!" << endl;
     } else {
         cout << "Parabens! Voce acertou a palavra secreta!" << endl;
+        cout << "Voce deseja adicionar uma nova palavra ao banco de dados? (S/N)" << endl;
+
+        char resposta;
+        cin >> resposta;
+
+        if (resposta == 'S') {
+            adiciona_palavra();
+        }
+
+    }
+}
+
+void adiciona_palavra() {
+
+    cout << "Digite a nova palavra usando letras maiúsculas" << endl;
+    string nova;
+    cin >> nova;
+
+    vector<string> palavras = ler_arquivo();
+    palavras.push_back(nova);
+
+    salva_arquivo(palavras);
+
+}
+
+void salva_arquivo(vector<string> palavras) {
+    ofstream arquivo;
+
+    arquivo.open("palavras.txt");
+
+    if (arquivo.is_open()) {
+
+        arquivo << palavras.size() << endl;
+
+
+        for (string s: palavras) {
+            arquivo << s << endl;
+        }
+
+        arquivo.close();
+    } else {
+        cout << "Não foi possível acesar o banco de palavras " << endl;
+        exit(0);
     }
 }
 
