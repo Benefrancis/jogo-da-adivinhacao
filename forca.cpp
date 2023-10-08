@@ -29,23 +29,13 @@ bool existe(char l);
 
 
 int main() {
-
     cabecalho();
-
-
     while (!enforcou() && !acertou()) {
-
         imprime_palavra();
-
         chutes_errados();
-
         chute();
-
     }
-
-
     placar();
-
 }
 
 void placar() {
